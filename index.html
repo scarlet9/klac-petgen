@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            임금등 소장 작성
+        </title>
+        <script type="text/javascript" src="generator.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <article>
+            <section>
+                <h3>[1] 사건 유형</h3>
+                <input id="type1" type="checkbox" value="임금" checked onchange="toggle()" />
+                <label for="type1">임금</label>
+                <input id="type2" type="checkbox" value="퇴직금" />
+                <label for="type2">퇴직금</label>
+                <input id="type3" type="checkbox" value="기타 금품" />
+                <label for="type3">기타 금품</label>
+            </section>
+            <section>
+                <h3>[2] 체불 임금등 합계액</h3>
+                <input id="total" class="number" type="text" placeholder="4200000" />
+                <label for="total">원</label>
+            </section>
+            <section>
+                <h3>[3] 피고의 업종</h3>
+                <input id="work" type="text" placeholder="제조업" />
+            </section>
+            <section>
+                <h3>[4] 근로기간</h3>
+                <div>
+                    <input id="startDateRaw" type="date" />
+                    <label for="startDateRaw">부터</label>
+                </div>
+                <div>
+                    <input id="endDateRaw" type="date" />
+                    <label for="endDateRaw">까지</label>
+                </div>
+                <hr />
+                <div>
+                    <input id="nonpaymentDateRaw" type="date" />
+                    <label for="nonpaymentDateRaw">부터 임금 미지급</label>
+                </div>
+            </section>
+            <section>
+                <button onclick="generate()">작성</button>
+            </section>
+        </article>
+        <article>
+            <h3>출력 소장</h3>
+            <h4>청구취지</h4>
+            <textarea id="out1" class="area1" readonly>
+            </textarea>
+            <h4>청구원인</h4>
+            <textarea id="out2" class="area2" readonly>
+            </textarea>
+        </article>
+        <article>
+            <h3>기본 문구</h3>
+            <h4>청구취지</h4>
+            <textarea id="tpl1" class="area1">
+1. 피고는 원고에게 ${total}원 및 이에 대한 ${delayDate}부터 다 갚는 날까지 연 20%의 비율로 계산한 돈을 지급하라.
+2. 소송비용은 피고가 부담한다.
+3. 제1항은 가집행할 수 있다.
+라는 판결을 구합니다.</textarea>
+            <h4>청구원인</h4>
+            <textarea id="tpl2" class="area2">
+1. 원고는 ${startDate}부터 ${endDate}까지 ${work}을 영위하는 피고에게 고용되어 노무를 제공하다 퇴직하였습니다.
+
+2. 그런데, 피고는 원고에게 ${nonpaymentDate}${types} 합계 ${total}원을 지급기일 연장에 관한 합의 없이 퇴직일로부터 14일이 경과하도록 지급하지 아니하였습니다. 원고의 자세한 근로내역은 체불임금등·사업주 확인서 기재와 같습니다.
+
+3. 그렇다면 피고는 원고에게 체불${types} ${total}원 및 이에 대한 원고가 퇴직한 날로부터 14일이 지난 다음 날인 ${delayDate}부터 다 갚는 날까지 근로기준법 제37조 제1항, 동법 시행령 제17조가 정한 연 20%의 비율로 계산한 지연손해금을 지급할 의무가 있습니다.</textarea>
+        </article>
+    </body>
+</html>
